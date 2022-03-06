@@ -1,0 +1,12 @@
+name = "nogi-ical-worker"
+type = "javascript"
+zone_id = ""
+account_id = "015a5ae11bb1c06849144ec1cba87b14"
+route = ""
+workers_dev = true
+compatibility_date = "2022-02-23"
+
+[build]
+command = "npm install && npm run build"
+[build.upload]
+format = "service-worker"
