@@ -45,7 +45,7 @@ function nogiResponseDataToEvents(data: any[]): ICalEventData[] {
 }
 
 export const nogiSource: Source = {
-  name: "nogi",
+  name: "Nogi",
   fetchSpan:  SourceTimeSpan.Month,
   fetch: async (now: Date) => {
     const jpDateStr = now.toLocaleDateString("ja-JP", {timeZone: 'Asia/Tokyo'})

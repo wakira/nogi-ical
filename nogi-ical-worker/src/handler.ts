@@ -1,14 +1,17 @@
 import { nogiSource } from './sources/nogi'
+import { motoSource } from './sources/moto'
 import { Source } from './source'
 import ical from 'ical-generator'
 import { ICalEventData } from 'ical-generator'
 
 enum Bitmask{
-  NOGI = 1
+  NOGI = 1,
+  MOTO = 2
 }
 
 const bitmaskOfSource: {[key in Bitmask]: Source} = {
   1: nogiSource,
+  2: motoSource
 }
 
 function urlLastSegment(url: string): string {
@@ -49,11 +52,13 @@ export async function handleRequest(event: FetchEvent): Promise<Response> {
 
     const now = new Date()
     const events: ICalEventData[] = []
+    let name = ""
     for (const source of sources) {
       console.log(`Fetch from source:${source.name}`)
       const evs = await source.fetch(now)
       // we can further optimize by preallocating events
       events.push(...evs)
+      name += source.name
     }
 
     const calendar = ical({ name: 'Nogi' })
