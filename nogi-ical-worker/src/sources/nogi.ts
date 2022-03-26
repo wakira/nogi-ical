@@ -48,9 +48,11 @@ export const nogiSource: Source = {
   name: "nogi",
   fetchSpan:  SourceTimeSpan.Month,
   fetch: async (now: Date) => {
-    const yearStr = now.getFullYear().toString()
-    const month = now.getMonth() + 1
-    const monthStr = month < 10 ? '0' + month.toString() : month.toString()
+    const jpDateStr = now.toLocaleDateString("ja-JP", {timeZone: 'Asia/Tokyo'})
+    const splitted = jpDateStr.split('/')
+    const yearStr = splitted[0]
+    const monthStr = splitted[1].padStart(2, '0')
+
     const nogiResp = await fetch(
       `https://www.nogizaka46.com/s/n46/api/list/schedule?ima=0105&dy=${yearStr}${monthStr}`
     )
