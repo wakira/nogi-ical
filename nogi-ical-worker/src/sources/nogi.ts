@@ -8,9 +8,6 @@ function stripNogiResponse(resp: string): string {
 
 function nogiResponseDataToEvents(data: any[]): ICalEventData[] {
   console.log(`num of entries to process: ${data.length}`)
-  // if (data.length > 100) {
-  //   data = data.slice(0, 100)
-  // }
   return data.map((entry) => {
     const [yearStr, monthStr, dayStr] = entry.date.split('/')
     const year = parseInt(yearStr)

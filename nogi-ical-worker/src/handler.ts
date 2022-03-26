@@ -50,7 +50,9 @@ export async function handleRequest(event: FetchEvent): Promise<Response> {
     const now = new Date()
     const events: ICalEventData[] = []
     for (const source of sources) {
+      console.log(`Fetch from source:${source.name}`)
       const evs = await source.fetch(now)
+      // we can further optimize by preallocating events
       events.push(...evs)
     }
 
