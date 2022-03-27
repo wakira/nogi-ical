@@ -20,16 +20,22 @@ function nogiResponseDataToEvents(data: any[]): ICalEventData[] {
     dateAddHours(end, -9)
 
     let allDay = true
-    if (entry.start_time && entry.end_time) {
+    if (entry.start_time) {
       allDay = false
 
       const [startHoursStr, startMinutesStr] = entry.start_time.split(':')
       dateAddHours(start, parseInt(startHoursStr))
       dateAddMinutes(start, parseInt(startMinutesStr))
 
-      const [endHoursStr, endMinutesStr] = entry.end_time.split(':')
-      dateAddHours(end, parseInt(endHoursStr))
-      dateAddMinutes(end, parseInt(endMinutesStr))
+      if (entry.end_time) {
+        const [endHoursStr, endMinutesStr] = entry.end_time.split(':')
+        dateAddHours(end, parseInt(endHoursStr))
+        dateAddMinutes(end, parseInt(endMinutesStr))
+      } else {
+        // for events without end_time, use start as end time
+        dateAddHours(end, parseInt(startHoursStr))
+        dateAddMinutes(end, parseInt(startMinutesStr))
+      }
     } else {
       dateAddHours(end, 24)
     }
