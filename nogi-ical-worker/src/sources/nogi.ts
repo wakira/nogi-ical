@@ -15,13 +15,14 @@ function nogiResponseDataToEvents(data: any[]): ICalEventData[] {
     const day = parseInt(dayStr)
 
     const start = new Date(Date.UTC(year, month - 1, day))
-    dateAddHours(start, -9)
     const end = new Date(Date.UTC(year, month - 1, day))
-    dateAddHours(end, -9)
 
     let allDay = true
     if (entry.start_time) {
       allDay = false
+      // adjust to UTC time
+      dateAddHours(start, -9)
+      dateAddHours(end, -9)
 
       const [startHoursStr, startMinutesStr] = entry.start_time.split(':')
       dateAddHours(start, parseInt(startHoursStr))

@@ -13,8 +13,11 @@ function motoResponseDataToEvents(data: any[]): ICalEventData[] {
     const start = parseISOLocal(entry.start)
     const end = parseISOLocal(entry.end)
 
-    dateAddHours(start, -9)
-    dateAddHours(end, -9)
+    if (!entry.allDay) {
+      // adjust to UTC time
+      dateAddHours(start, -9)
+      dateAddHours(end, -9)
+    }
 
     return {
       summary: entry.title,
