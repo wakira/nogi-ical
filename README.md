@@ -2,7 +2,8 @@
 
 Serverless Cloudflare Workers that provides iCalendar(ICS format) for nogizaka46.com and motonogi.com schedules.
 
-Currently only events of the current month is provided.
+When current day of the month > 15, events of the current month and the next month are provided. Otherwise only events
+of the current month is provided.
 
 ## Deployment
 
