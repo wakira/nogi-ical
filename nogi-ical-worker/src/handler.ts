@@ -63,12 +63,10 @@ async function fetchFuture(source: Source): Promise<ICalEventData[]> {
       // get this month
       const evs = await source.fetch(now)
       events.push(...evs)
-      // get the next month if current day > 15
-      if (now.getDate() > 15) {
-        dateAddHours(now, 24*20) // 20 days after the 15th day will land in the next month
-        const evs = await source.fetch(now)
-        events.push(...evs)
-      }
+      // get the next month
+      now.setMonth(now.getMonth() + 1)
+      const evsNxtMonth = await source.fetch(now)
+      events.push(...evsNxtMonth)
       break
     default:
       console.error(`Impossible enum value for SourceTimeSpan: ${source.fetchSpan}`)
